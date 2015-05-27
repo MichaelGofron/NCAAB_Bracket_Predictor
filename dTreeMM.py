@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import dataman as dm
 from sklearn import tree
 # python print decision tree
 from sklearn.externals.six import StringIO  
@@ -52,20 +51,6 @@ def percentCorrect(cBin, vBin):
         else:
             labeledIncorrectlyCount += 1
     return float(labeledCorrectlyCount)/len(cBin)
-"""
-def produceDecisionTree(regData,playData):
-    for 
-    regSeason = dm.lReg[0]
-    resSeasonIn = regSeason[0]
-    regSeasonOut = regSeason[1]
-    
-    pIn = dm.lPlay[0]
-    pOut = dm.lPlay[1]
-    
-    t = tree.DecisionTreeClassifier()
-    t = t.fit(regSeasonIn, regSeasonOut)
-    c = t.predict(pIn)
- """   
  
 def loadTupleData(lString):
     instances = []
@@ -98,11 +83,20 @@ def generatePDF(PDFName,dTree):
     
 def driver(sLTrain, sLTest, LDTVars,PDFName):
     t = produceDecisionTree(sLTrain, LDTVars)
-    print evaluatePerformance(sLTest, t)
+    print "Performance of tree: ", evaluatePerformance(sLTest, t)
     generatePDF(PDFName,t)
 
-sTrain = ['r-2010']
-sTest = ['p-2010']
-lVars = []
-PDFName = "dTree2010"
-driver(sTrain, sTest, lVars, PDFName)
+def regVsPlay(lDTVars = []):
+    regPrepend = 'r-'
+    playPrepend = 'p-'
+    allReg = []
+    allPlay = []
+    for year in xrange(2010, 2016):
+        sReg = [regPrepend + str(year)]
+        sPlay = [playPrepend + str(year)]
+        allReg = allReg + sReg
+        allPlay = allPlay + sPlay
+        driver(sReg, sPlay, lDTVars, 'dTreeReg' + str(year))
+    driver(allReg, allPlay, lDTVars, 'AllReg')
+
+regVsPlay()

@@ -163,7 +163,3 @@ def createLoadedArr():
         lReg.append(p.load(open(regFileName, 'rb')))
         lPlay.append(p.load(open(playFileName, 'rb')))
     return (lReg, lPlay)
-
-
-#lReg, lPlay = createLoadedArr()
-#generateDataForAllYears()
