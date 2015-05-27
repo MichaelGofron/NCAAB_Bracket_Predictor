@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-playoffsDirectory = "/Users/JuanDa/Documents/Git/NCAAB_Bracket_Predictor/Data/playoffs/"
-regDirectory = "/Users/JuanDa/Documents/Git/NCAAB_Bracket_Predictor/Data/reg_data/"
-teamDirectory = "/Users/JuanDa/Documents/Git/NCAAB_Bracket_Predictor/Data/team_data/"
+playoffsDirectory = "./Data/playoffs/"
+regDirectory = "./Data/reg_data/"
+teamDirectory = "./Data/team_data/"
 playoffsPrepend = "playoff_game_data_"
 regPrepend = "reg_data_"
 teamPrepend = "team_data_"
