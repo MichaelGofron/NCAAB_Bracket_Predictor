@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import pickle as p
 playoffsDirectory = "./Data/playoffs/"
 regDirectory = "./Data/reg_data/"
 teamDirectory = "./Data/team_data/"
@@ -75,11 +76,19 @@ def isNotString(obj):
     return not isinstance(obj, str)
 
 def manipulateTeamData(listOfTeams):
-    listOfTeams.pop(0)
+    l = listOfTeams.pop(0)
+    print len(l)
+    print l
+    print listOfTeams[0]
+    print len(listOfTeams[0])
     lOfTeamsNoCommas = [map(removeCommas, x) for x in listOfTeams]
     lOfTeamsNoTabs = [filter(isNotEqualToTab, x) for x in lOfTeamsNoCommas]
     strListToNumList(lOfTeamsNoTabs)
+    print len(lOfTeamsNoTabs[0])
+    print lOfTeamsNoTabs[0]
     listOfTeams = [filter(isNotString, x) for x in lOfTeamsNoTabs]
+    print len(listOfTeams[0])
+    print listOfTeams[0]
     dTeam = {}
     for team in listOfTeams:
         dTeam[int(team[0])] = team[1:]
@@ -114,6 +123,8 @@ def assertGameTeamMatch(tupleData, isPlayoff = False):
     lOutput = tupleData[1]
     if isPlayoff:
         if len(lInstances) != 63:
+            print "numGames == ",len(lInstances)
+            print lInstances
             raise ValueError("There are not 63 playoff games")
     if len(lInstances[0]) != 80:
         raise ValueError("Not same number of team stats")
@@ -121,17 +132,38 @@ def assertGameTeamMatch(tupleData, isPlayoff = False):
         raise ValueError("In number of instances not equal to number of outputs")
     return assertAllSameL(lInstances)
     
-    
+def createTupleData(gameFile, teamFile, stringYear, isPlayOff = False):
+    table = convertTSVToData(gameFile)
+    lGames = manipulateGameData(table)
+    team = convertTSVToData(teamFile)
+    dTeam = manipulateTeamData(team)
+    tupleData = mapDTeamLWins(dTeam, lGames)
+    assertGameTeamMatch(tupleData, isPlayOff)
+    prePend = 'r-'
+    if isPlayOff:
+        prePend = 'p-'
+    fileName = 'tupleData_' + prePend + stringYear + '.p'
+    p.dump(tupleData, open(fileName, 'wb'))
+    return tupleData
 
-table2010 = convertTSVToData(regDirectory + regPrepend + "2010.txt")
-team2010 = convertTSVToData(teamDirectory + teamPrepend + "2010.tsv")        
 
-dTeam2010 = manipulateTeamData(team2010)
-lGames2010 = manipulateGameData(table2010)
-tupleData = mapDTeamLWins(dTeam2010, lGames2010)
+def generateDataForAllYears():
+    for year in xrange(2010,2016):
+        teamFile = teamDirectory + teamPrepend + str(year) + ".tsv"
+        createTupleData(regDirectory + regPrepend + str(year) + ".txt",teamFile,str(year))
+        createTupleData(playoffsDirectory + playoffsPrepend + str(year) + ".tsv",teamFile,str(year),True)
 
-playoffTable2010 = convertTSVToData(playoffsDirectory + playoffsPrepend + "2010.tsv")
-lPlayoff2010 = manipulateGameData(playoffTable2010)
-playoffTupleData = mapDTeamLWins(dTeam2010,lPlayoff2010)
-assertGameTeamMatch(playoffTupleData, True)    
-    
+
+def createLoadedArr():
+    lReg = []
+    lPlay = []
+    for year in xrange(2010, 2016):
+        regFileName = 'tupleData_r-' + str(year) + '.p'
+        playFileName = 'tupleData_p-' + str(year) + '.p'
+        lReg.append(p.load(open(regFileName, 'rb')))
+        lPlay.append(p.load(open(playFileName, 'rb')))
+    return (lReg, lPlay)
+
+
+#lReg, lPlay = createLoadedArr()
+#generateDataForAllYears()
