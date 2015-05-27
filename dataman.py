@@ -146,6 +146,16 @@ def createTupleData(gameFile, teamFile, stringYear, isPlayOff = False):
     p.dump(tupleData, open(fileName, 'wb'))
     return tupleData
 
+def saveTeamDict(teamFile,stringYear):
+    team = convertTSVToData(teamFile)
+    dTeam = manipulateTeamData(team)
+    fileName = "dTeam_" + stringYear + ".p"
+    p.dump(dTeam,open(fileName,'wb'))
+    
+def saveAllTeams():
+    for year in xrange(2010,2016):
+        teamFile = teamDirectory + teamPrepend + str(year) + ".tsv"
+        saveTeamDict(teamFile,str(year))
 
 def generateDataForAllYears():
     for year in xrange(2010,2016):
@@ -163,3 +173,4 @@ def createLoadedArr():
         lReg.append(p.load(open(regFileName, 'rb')))
         lPlay.append(p.load(open(playFileName, 'rb')))
     return (lReg, lPlay)
+    

@@ -70,9 +70,11 @@ def produceDecisionTree(sLTrain, LDTVars):
     t = t.fit(tTrain[0], tTrain[1])
     return t
 
-def evaluatePerformance(sLTest, dTree):
+def evaluatePerformance(sLTest, dTree, printOut = False):
     tTest = loadTupleData(sLTest)
     c = dTree.predict(tTest[0])
+    if printOut:
+        print c
     return percentCorrect(c, tTest[1])
     
 def generatePDF(PDFName,dTree):
@@ -99,4 +101,3 @@ def regVsPlay(sARTName, sIRTName, lDTVars = []):
         driver(sReg, sPlay, lDTVars, sIRTName  + str(year))
     driver(allReg, allPlay, lDTVars, sARTName)
 
-regVsPlay('AllReg', 'dTreeReg')
