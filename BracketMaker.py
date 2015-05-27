@@ -58,6 +58,7 @@ def matchSeeds(inTeams):
         for team in xrange(halfTeams):
             matchedTeam = [inTeams[team], inTeams[numTeams - 1 - team]]
             matchedTeams.append(matchedTeam)
+        print matchedTeams
         return matchedTeams
         
 def NCAATournament(year,dTree):
@@ -69,6 +70,10 @@ def NCAATournament(year,dTree):
     W = regionalTournament(Wseed,2015,dTree)
     E = regionalTournament(Eseed,2015,dTree)
     S = regionalTournament(Sseed,2015,dTree)
+    print MW
+    print W
+    print E
+    print S
     # MW vs E, W vs S
     MWvsE = E
     if winner(MW,E,year,dTree):
@@ -76,6 +81,8 @@ def NCAATournament(year,dTree):
     WvsS = S
     if winner(W,S,year,dTree):
         WvsS = W
+    print MWvsE
+    print WvsS
     finalWinner = WvsS
     if winner(MWvsE,WvsS,year,dTree):
         finalWinner = MWvsE
