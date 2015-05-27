@@ -86,7 +86,7 @@ def driver(sLTrain, sLTest, LDTVars,PDFName):
     print "Performance of tree: ", evaluatePerformance(sLTest, t)
     generatePDF(PDFName,t)
 
-def regVsPlay(lDTVars = []):
+def regVsPlay(sARTName, sIRTName, lDTVars = []):
     regPrepend = 'r-'
     playPrepend = 'p-'
     allReg = []
@@ -96,7 +96,7 @@ def regVsPlay(lDTVars = []):
         sPlay = [playPrepend + str(year)]
         allReg = allReg + sReg
         allPlay = allPlay + sPlay
-        driver(sReg, sPlay, lDTVars, 'dTreeReg' + str(year))
-    driver(allReg, allPlay, lDTVars, 'AllReg')
+        driver(sReg, sPlay, lDTVars, sIRTName  + str(year))
+    driver(allReg, allPlay, lDTVars, sARTName)
 
-regVsPlay()
+regVsPlay('AllReg', 'dTreeReg')
