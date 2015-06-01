@@ -8,10 +8,22 @@ import dataman as dman
 import dTreeMM as dT
 import pickle as p
 
+
+DictStatsDir = './DictionariesOfTeamStats/'
+statsDictPrepend = "dTeam_"
+tupleDataDir = './tupleData/'
+nameDictDir = "./DictionariesOfTeamNames/"
+nameDictPrepend = 'dTNames_'
+pickleFileEnding = '.p'
+
+
+
 MW2015 = [334,328,513,392,768,87,782,140,559,306,703,86,735,500,472,270]
 W2015 = [796,29,51,457,31,812,740,529,521,518,430,2915,275,254,699,149]
 E2015 = [739,746,522,367,504,556,416,490,365,257,175,811,109,14,14927,342]
 S2015 = [193,260,311,251,732,663,312,626,603,173,110,676,207,9,493,579]
+
+
 
 def winner(awayID,homeID,year,dTree):
     awayTeamInfo = getTeamData(awayID,year)
@@ -22,7 +34,7 @@ def winner(awayID,homeID,year,dTree):
     return win
     
 def getTeamData(teamID,year):
-    dTeamFile = "dTeam_" + str(year) + ".p"
+    dTeamFile = DictStatsDir + statsDictPrepend + str(year) + pickleFIleEnding
     dTeam = p.load(open(dTeamFile, 'rb'))
     teamInfo = dTeam[teamID]
     return teamInfo
@@ -36,14 +48,16 @@ def seedTeams(inTeams):
     return seededTeams
 
     
-def regionalTournament(ltSeedsIds,year,dTree):
+def regionalTournament(ltSeedsIds,year,dTree,dName):
     if len(ltSeedsIds) == 1:
+        print "R Winner: ", dName[ltSeedsIds[0][1]]
         return ltSeedsIds[0][1]
     matchedTeams = matchSeeds(ltSeedsIds)
+    printMatchedTeams(matchedTeams,dName)
     lWinningTeams = []
     for mTeam in matchedTeams:
         lWinningTeams.append(mTeam[not winner(mTeam[0][1], mTeam[1][1], year, dTree)])
-    return regionalTournament(lWinningTeams, year, dTree)
+    return regionalTournament(lWinningTeams, year, dTree,dName)
         
         
 def matchSeeds(inTeams):
@@ -58,38 +72,48 @@ def matchSeeds(inTeams):
         for team in xrange(halfTeams):
             matchedTeam = [inTeams[team], inTeams[numTeams - 1 - team]]
             matchedTeams.append(matchedTeam)
-        print matchedTeams
         return matchedTeams
         
+        
+def printMatchedTeams(matchedTeams,TeamIDDict):
+    for t in matchedTeams:
+        print " | " + TeamIDDict[t[0][1]] + " vs. " + TeamIDDict[t[1][1]] + " | ",
+    print
+        
 def NCAATournament(year,dTree):
+    DTName = nameDictDir + nameDictPrepend + str(year) + pickleFileEnding
+    dName = p.load(open(DTName, 'rb'))
     MWseed = seedTeams(MW2015)
     Wseed = seedTeams(W2015)
     Eseed = seedTeams(E2015)
     Sseed = seedTeams(S2015)
-    MW = regionalTournament(MWseed,2015,dTree)
-    W = regionalTournament(Wseed,2015,dTree)
-    E = regionalTournament(Eseed,2015,dTree)
-    S = regionalTournament(Sseed,2015,dTree)
-    print MW
-    print W
-    print E
-    print S
+    print "\n MidWest Regional Tournament \n "
+    MW = regionalTournament(MWseed,2015,dTree,dName)
+    print "\n West Regional Tournament \n "
+    W = regionalTournament(Wseed,2015,dTree,dName)
+    print "\n East Regional Tournament \n "
+    E = regionalTournament(Eseed,2015,dTree,dName)
+    print "\n South Regional Tournament \n"
+    S = regionalTournament(Sseed,2015,dTree,dName)
     # MW vs E, W vs S
+    print "MW vs E: |" + dName[MW] + " vs " + dName[E] + " | "
     MWvsE = E
     if winner(MW,E,year,dTree):
         MWvsE = MW
+    print "MW vs E Winner : ", dName[MWvsE], "\n"
+    print "W vs S: |" + dName[W] + " vs " + dName[S] + " | "
     WvsS = S
     if winner(W,S,year,dTree):
         WvsS = W
-    print MWvsE
-    print WvsS
+    print "W vs S Winner: ", dName[WvsS], "\n"
     finalWinner = WvsS
     if winner(MWvsE,WvsS,year,dTree):
         finalWinner = MWvsE
+    print "Grand Winner! :", dName[finalWinner]
     return finalWinner
             
             
         
 t = dT.produceDecisionTree(["r-2015"], []) 
 sTeams = seedTeams(MW2015)
-print NCAATournament(2015,t)
+NCAATournament(2015,t)

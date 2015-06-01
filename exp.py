@@ -1,4 +1,24 @@
 # -*- coding: utf-8 -*-
+
+l = [(3, 7), (1, 9), (2, 8)]
+
+def returnEl(il):
+    for x in xrange(len(il)):
+        if x != 2:
+            yield il[x]
+        else:
+            yield il[x]
+
+for x in returnEl(l):
+    print x, '\t',
+
+
+
+
+
+
+
+"""
 lAway = ['team_fgm', 
 'team_fga', 'team_fgpct', 'team_three_fgm', 'team_three_fga', 
 'team_three_fgpct', 'team_ft', 'team_fta', 'team_ftpct', 
@@ -19,4 +39,4 @@ def appendSpot(inList, offset = 0, s = ''):
     return inList
 lConcat = appendSpot(lAway, s = 'ATeam ') + appendSpot(lHome, len(lAway), s = 'HTeam ')
 
-print lConcat
+print lConcat"""

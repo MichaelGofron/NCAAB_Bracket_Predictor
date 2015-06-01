@@ -6,8 +6,12 @@ teamDirectory = "./Data/team_data/"
 playoffsPrepend = "playoff_game_data_"
 regPrepend = "reg_data_"
 teamPrepend = "team_data_"
+nameDictDir = "./DictionariesOfTeamNames/"
+nameDictPrepend = 'dTNames_'
+pickleFIleEnding = '.p'
 
 """
+Game Info:
 0. game_id	1.game_date	2.away_team_id 	3.away_team_name	4.away_team_minutes	5.away_team_fgm	
 6.away_team_fga	7.away_team_three_fgm	8.away_team_three_fga	9.away_team_ft 	10.away_team_fta
 	11.away_team_pts	12.away_team_offreb	13.away_team_defreb	14.away_team_totreb	
@@ -16,6 +20,20 @@ teamPrepend = "team_data_"
  25.home_team_three_fgm 26.home_team_three_fga	27.home_team_ft	28.home_team_fta	29.home_team_pts	
  30.home_team_offreb 31.home_team_defreb	32.home_team_totreb	33.home_team_ast	34.home_team_to	
  35.home_team_stl	36.home_team_blk 37. home_team_fouls	 38.neutral_site
+ 
+ 
+ Team Info:
+ ['team_id', 'team_name', 'team_minutes', 'team_fgm', 'team_fga', 'team_fgpct',
+ 'team_three_fgm', 'team_three_fga', 'team_three_fgpct', 'team_ft', 'team_fta',
+ 'team_ftpct', 'team_pts', 'team_ptsavg', 'team_offreb', 'team_defreb', 
+ 'team_totreb', 'team_rebavg', 'team_ast', 'team_to', 'team_stl', 'team_blk', 
+ 'team_fouls', 'team_dbldbl', 'team_trpdbl', 'opp_team_minutes', 
+ 'opp_team_fgm', 'opp_team_fga', 'opp_team_fgpct', 'opp_team_three_fgm', 
+ 'opp_team_three_fga', 'opp_team_three_fgpct', 'opp_team_ft', 'opp_team_fta', 
+ 'opp_team_ftpct', 'opp_team_pts', 'opp_team_ptsavg', 'opp_team_offreb', 
+ 'opp_team_defreb', 'opp_team_totreb', 'opp_team_rebavg', 'opp_team_ast', 
+ 'opp_team_to', 'opp_team_stl', 'opp_team_blk', 'opp_team_fouls', 
+ 'opp_team_dbldbl', 'opp_team_trpdbl']
 """
 
 def isConvertableFloat(value):
@@ -173,4 +191,27 @@ def createLoadedArr():
         lReg.append(p.load(open(regFileName, 'rb')))
         lPlay.append(p.load(open(playFileName, 'rb')))
     return (lReg, lPlay)
+
+
+def createIDNameDict(sYear):
+    fileName = teamDirectory + teamPrepend + sYear + '.tsv'
+    team = convertTSVToData(fileName)
+    team.pop(0)
+    dTeam = {}
+    for t in team:
+        dTeam[int(t[0])] = t[1]
+    return dTeam
+
+def createDNames():
+    for x in xrange(2010, 2016):
+        d = createIDNameDict(str(x))
+        fileName = nameDictDir + nameDictPrepend + str(x) + pickleFIleEnding
+        p.dump(d, open(fileName, 'wb'))
+    print 'done'
     
+        
+
+
+
+
+

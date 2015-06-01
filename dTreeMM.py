@@ -41,6 +41,15 @@ import pickle as p
 'HTeam [ 74 ] opp_team_rebavg', 'HTeam [ 75 ] opp_team_ast', 
 'HTeam [ 76 ] opp_team_to', 'HTeam [ 77 ] opp_team_stl', 
 'HTeam [ 78 ] opp_team_blk', 'HTeam [ 79 ] opp_team_fouls']"""
+
+
+
+DictStatsDir = './DictionariesOfTeamStats/'
+tupleDataDir = './tupleData/'
+tupleDataPrepend = 'tupleData_'
+pickleFileEnding = '.p'
+
+
 def percentCorrect(cBin, vBin):
     #cBin = Classification binary list , ie our guesses
     #vBin = verification binary list, ie truth
@@ -57,7 +66,7 @@ def loadTupleData(lString):
     instances = []
     outBin = []
     for each in lString:
-        fileName = 'tupleData_' + each + '.p'
+        fileName = tupleDataDir + tupleDataPrepend + each + pickleFileEnding
         tData = p.load(open(fileName, 'rb'))
         instances = instances + tData[0]
         outBin = outBin + tData[1]
