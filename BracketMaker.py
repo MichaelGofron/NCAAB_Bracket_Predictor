@@ -34,7 +34,7 @@ def winner(awayID,homeID,year,dTree):
     return win
     
 def getTeamData(teamID,year):
-    dTeamFile = DictStatsDir + statsDictPrepend + str(year) + pickleFIleEnding
+    dTeamFile = DictStatsDir + statsDictPrepend + str(year) + pickleFileEnding
     dTeam = p.load(open(dTeamFile, 'rb'))
     teamInfo = dTeam[teamID]
     return teamInfo
