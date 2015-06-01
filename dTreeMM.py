@@ -72,12 +72,20 @@ def loadTupleData(lString):
         outBin = outBin + tData[1]
     return (instances, outBin)
 
-
+"""
 def produceDecisionTree(sLTrain, LDTVars):
     #Do more with SlDTVars
     tTrain = loadTupleData(sLTrain)
     #t = tree.DecisionTreeClassifier()
     t = RFC(n_estimators=10)    
+    t = t.fit(tTrain[0], tTrain[1])
+    return t
+"""
+def produceDecisionTree(sLTrain, LDTVars):
+    #Do more with SlDTVars
+    tTrain = loadTupleData(sLTrain)
+    t = tree.DecisionTreeClassifier()
+    #t = RFC(n_estimators=10)    
     t = t.fit(tTrain[0], tTrain[1])
     return t
 

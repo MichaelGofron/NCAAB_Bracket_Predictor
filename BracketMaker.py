@@ -96,7 +96,7 @@ def NCAATournament(year,dTree):
     print "\n South Regional Tournament \n"
     S = regionalTournament(Sseed,2015,dTree,dName)
     # MW vs E, W vs S
-    print "MW vs E: |" + dName[MW] + " vs " + dName[E] + " | "
+    print "\nMW vs E: |" + dName[MW] + " vs " + dName[E] + " | "
     MWvsE = E
     if winner(MW,E,year,dTree):
         MWvsE = MW
@@ -106,6 +106,7 @@ def NCAATournament(year,dTree):
     if winner(W,S,year,dTree):
         WvsS = W
     print "W vs S Winner: ", dName[WvsS], "\n"
+    print "Final two: "," | ", dName[MWvsE], " vs ", dName[WvsS], " | "
     finalWinner = WvsS
     if winner(MWvsE,WvsS,year,dTree):
         finalWinner = MWvsE
