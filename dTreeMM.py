@@ -2,6 +2,7 @@
 from sklearn import tree
 # python print decision tree
 from sklearn.externals.six import StringIO  
+from sklearn.ensemble import RandomForestClassifier as RFC
 import pydot
 import pickle as p
 """['ATeam [ 0 ] team_fgm', 'ATeam [ 1 ] team_fga', 'ATeam [ 2 ] team_fgpct', 
@@ -66,7 +67,8 @@ def loadTupleData(lString):
 def produceDecisionTree(sLTrain, LDTVars):
     #Do more with SlDTVars
     tTrain = loadTupleData(sLTrain)
-    t = tree.DecisionTreeClassifier()
+    #t = tree.DecisionTreeClassifier()
+    t = RFC(n_estimators=10)    
     t = t.fit(tTrain[0], tTrain[1])
     return t
 
