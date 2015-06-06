@@ -96,20 +96,20 @@ def NCAATournament(year,dTree):
     print "\n South Regional Tournament \n"
     S = regionalTournament(Sseed,2015,dTree,dName)
     # MW vs E, W vs S
-    print "\nMW vs E: |" + dName[MW] + " vs " + dName[E] + " | "
-    MWvsE = E
-    if winner(MW,E,year,dTree):
-        MWvsE = MW
-    print "MW vs E Winner : ", dName[MWvsE], "\n"
-    print "W vs S: |" + dName[W] + " vs " + dName[S] + " | "
-    WvsS = S
-    if winner(W,S,year,dTree):
-        WvsS = W
-    print "W vs S Winner: ", dName[WvsS], "\n"
-    print "Final two: "," | ", dName[MWvsE], " vs ", dName[WvsS], " | "
-    finalWinner = WvsS
-    if winner(MWvsE,WvsS,year,dTree):
-        finalWinner = MWvsE
+    print "\nMW vs W: |" + dName[MW] + " vs " + dName[W] + " | "
+    MWvsW = W
+    if winner(MW,W,year,dTree):
+        MWvsW = MW
+    print "MW vs W Winner : ", dName[MWvsW], "\n"
+    print "E vs S: |" + dName[E] + " vs " + dName[S] + " | "
+    EvsS = S
+    if winner(E,S,year,dTree):
+        EvsS = E
+    print "W vs S Winner: ", dName[EvsS], "\n"
+    print "Final two: "," | ", dName[MWvsW], " vs ", dName[EvsS], " | "
+    finalWinner = EvsS
+    if winner(MWvsW,EvsS,year,dTree):
+        finalWinner = MWvsW
     print "Grand Winner! :", dName[finalWinner]
     return finalWinner
             

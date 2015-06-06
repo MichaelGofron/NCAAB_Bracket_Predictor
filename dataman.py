@@ -9,7 +9,13 @@ teamPrepend = "team_data_"
 nameDictDir = "./DictionariesOfTeamNames/"
 nameDictPrepend = 'dTNames_'
 pickleFIleEnding = '.p'
-
+tupleDataDir = './tupleData/'
+tupleDataFName = 'tupleData_'
+statsDictDir = './DictionariesOfTeamStats/'
+statsDictFName = "dTeam_"
+numGamesP = 63
+lOfTeamData = 60
+doNotDivideL = [2, 5, 8, 10, 14,22, 25, 28, 30, 34]
 """
 Game Info:
 0. game_id	1.game_date	2.away_team_id 	3.away_team_name	4.away_team_minutes	5.away_team_fgm	
@@ -34,6 +40,53 @@ Game Info:
  'opp_team_defreb', 'opp_team_totreb', 'opp_team_rebavg', 'opp_team_ast', 
  'opp_team_to', 'opp_team_stl', 'opp_team_blk', 'opp_team_fouls', 
  'opp_team_dbldbl', 'opp_team_trpdbl']
+ 
+ ['ATeam [ 0 ] team_fgm', 'ATeam [ 1 ] team_fga', 'ATeam [ 2 ] team_fgpct', 
+'ATeam [ 3 ] team_three_fgm', 'ATeam [ 4 ] team_three_fga', 
+'ATeam [ 5 ] team_three_fgpct', 'ATeam [ 6 ] team_ft', 
+'ATeam [ 7 ] team_fta', 'ATeam [ 8 ] team_ftpct', 'ATeam [ 9 ] team_pts', 
+'ATeam [ 10 ] team_ptsavg', 'ATeam [ 11 ] team_offreb', 
+'ATeam [ 12 ] team_defreb', 'ATeam [ 13 ] team_totreb', 
+'ATeam [ 14 ] team_rebavg', 'ATeam [ 15 ] team_ast', 'ATeam [ 16 ] team_to', 
+'ATeam [ 17 ] team_stl', 'ATeam [ 18 ] team_blk', 'ATeam [ 19 ] team_fouls', 
+'ATeam [ 20 ] opp_team_fgm', 'ATeam [ 21 ] opp_team_fga', 
+'ATeam [ 22 ] opp_team_fgpct', 'ATeam [ 23 ] opp_team_three_fgm', 
+'ATeam [ 24 ] opp_team_three_fga', 'ATeam [ 25 ] opp_team_three_fgpct', 
+'ATeam [ 26 ] opp_team_ft', 'ATeam [ 27 ] opp_team_fta', 
+'ATeam [ 28 ] opp_team_ftpct', 'ATeam [ 29 ] opp_team_pts', 
+'ATeam [ 30 ] opp_team_ptsavg', 'ATeam [ 31 ] opp_team_offreb', 
+'ATeam [ 32 ] opp_team_defreb', 'ATeam [ 33 ] opp_team_totreb', 
+'ATeam [ 34 ] opp_team_rebavg', 'ATeam [ 35 ] opp_team_ast', 
+'ATeam [ 36 ] opp_team_to', 'ATeam [ 37 ] opp_team_stl', 
+'ATeam [ 38 ] opp_team_blk', 'ATeam [ 39 ] opp_team_fouls',  
+ 
+
+tGamesPlayed = round(float('ATeam [ 9 ] team_pts')/ 'ATeam [ 10 ] team_ptsavg')
+
+
+ ['ATeam [ 0 ] team_fgm'/tGamePlayes, 'ATeam [ 1 ] team_fga' /tGampePlayed, 'ATeam [ 2 ] team_fgpct', 
+'ATeam [ 3 ] team_three_fgm'/tGamesPlayed, 'ATeam [ 4 ] team_three_fga' /tGamesPlayed, 
+'ATeam [ 5 ] team_three_fgpct', 'ATeam [ 6 ] team_ft'/tGamesPlayed, 
+'ATeam [ 7 ] team_fta'/tGamesPlayed, 'ATeam [ 8 ] team_ftpct',
+'ATeam [ 10 ] team_ptsavg', 'ATeam [ 11 ] team_offreb'/tGamesPlayed, 
+'ATeam [ 12 ] team_defreb'/tGamesPlayed, 
+'ATeam [ 14 ] team_rebavg', 'ATeam [ 15 ] team_ast'/tGamesPlayed, 'ATeam [ 16 ] team_to'/tGamesPlayed, 
+'ATeam [ 17 ] team_stl'/tGamesPlayed, 'ATeam [ 18 ] team_blk'/tGamesPlayed, 'ATeam [ 19 ] team_fouls'/tGamesPlayed, 
+'ATeam [ 20 ] opp_team_fgm' /tGamesPlayed, 'ATeam [ 21 ] opp_team_fga'/tGamesPlayed, 
+'ATeam [ 22 ] opp_team_fgpct', 'ATeam [ 23 ] opp_team_three_fgm'/tGamesPlayed, 
+'ATeam [ 24 ] opp_team_three_fga'/tGamesPlayed, 'ATeam [ 25 ] opp_team_three_fgpct', 
+'ATeam [ 26 ] opp_team_ft'/tGamesPlayed, 'ATeam [ 27 ] opp_team_fta'/tGamesPlayed, 
+'ATeam [ 28 ] opp_team_ftpct', 
+'ATeam [ 30 ] opp_team_ptsavg', 'ATeam [ 31 ] opp_team_offreb'/tGamesPlayed, 
+'ATeam [ 32 ] opp_team_defreb'/tGamesPlayed, 
+'ATeam [ 34 ] opp_team_rebavg', 'ATeam [ 35 ] opp_team_ast'/tGamesPlayed, 
+'ATeam [ 36 ] opp_team_to'/tGamesPlayed, 'ATeam [ 37 ] opp_team_stl'/tGamesPlayed, 
+'ATeam [ 38 ] opp_team_blk'/tGamesPlayed, 'ATeam [ 39 ] opp_team_fouls'/tGamesPlayed, 
+
+differentiate all
+
+ 
+ 
 """
 
 def isConvertableFloat(value):
@@ -94,19 +147,11 @@ def isNotString(obj):
     return not isinstance(obj, str)
 
 def manipulateTeamData(listOfTeams):
-    l = listOfTeams.pop(0)
-    print len(l)
-    print l
-    print listOfTeams[0]
-    print len(listOfTeams[0])
+    listOfTeams.pop(0)
     lOfTeamsNoCommas = [map(removeCommas, x) for x in listOfTeams]
     lOfTeamsNoTabs = [filter(isNotEqualToTab, x) for x in lOfTeamsNoCommas]
     strListToNumList(lOfTeamsNoTabs)
-    print len(lOfTeamsNoTabs[0])
-    print lOfTeamsNoTabs[0]
     listOfTeams = [filter(isNotString, x) for x in lOfTeamsNoTabs]
-    print len(listOfTeams[0])
-    print listOfTeams[0]
     dTeam = {}
     for team in listOfTeams:
         dTeam[int(team[0])] = team[1:]
@@ -140,34 +185,50 @@ def assertGameTeamMatch(tupleData, isPlayoff = False):
     lInstances = tupleData[0]
     lOutput = tupleData[1]
     if isPlayoff:
-        if len(lInstances) != 63:
+        if len(lInstances) != numGamesP:
             print "numGames == ",len(lInstances)
             print lInstances
             raise ValueError("There are not 63 playoff games")
-    if len(lInstances[0]) != 80:
+    if len(lInstances[0]) != lOfTeamData * 2:
         raise ValueError("Not same number of team stats")
     if len(lInstances)!=len(lOutput):
         raise ValueError("In number of instances not equal to number of outputs")
     return assertAllSameL(lInstances)
     
-def createTupleData(gameFile, teamFile, stringYear, isPlayOff = False):
+def createTupleData(gameFile, dTeam, stringYear, isPlayOff = False):
     table = convertTSVToData(gameFile)
     lGames = manipulateGameData(table)
-    team = convertTSVToData(teamFile)
-    dTeam = manipulateTeamData(team)
     tupleData = mapDTeamLWins(dTeam, lGames)
     assertGameTeamMatch(tupleData, isPlayOff)
     prePend = 'r-'
     if isPlayOff:
         prePend = 'p-'
-    fileName = 'tupleData_' + prePend + stringYear + '.p'
+    fileName = tupleDataDir + tupleDataFName + prePend + stringYear + '.p'
     p.dump(tupleData, open(fileName, 'wb'))
     return tupleData
 
+
+def avgDiffStats(teamDict):
+    for k in teamDict:
+        teamList = teamDict[k]
+        lenList = len(teamList)
+        tGamesPlayed = float(round(float(teamList[9])/teamList[10]))
+        oppTeamInd = lenList/2
+        for i in xrange(lenList):
+            if i not in doNotDivideL:
+                teamList[i] = teamList[i]/tGamesPlayed
+        ownTeamData = teamList[:oppTeamInd]
+        oppTeamData = teamList[oppTeamInd:lenList]
+        diff = [x - y for x,y in zip(ownTeamData, oppTeamData) ]
+        teamList.extend(diff)
+        teamDict[k] = teamList
+    return teamDict
+
 def saveTeamDict(teamFile,stringYear):
     team = convertTSVToData(teamFile)
-    dTeam = manipulateTeamData(team)
-    fileName = "dTeam_" + stringYear + ".p"
+    teamDict = manipulateTeamData(team)
+    dTeam = avgDiffStats(teamDict)
+    fileName = statsDictDir + statsDictFName + stringYear + ".p"
     p.dump(dTeam,open(fileName,'wb'))
     
 def saveAllTeams():
@@ -177,21 +238,12 @@ def saveAllTeams():
 
 def generateDataForAllYears():
     for year in xrange(2010,2016):
-        teamFile = teamDirectory + teamPrepend + str(year) + ".tsv"
-        createTupleData(regDirectory + regPrepend + str(year) + ".txt",teamFile,str(year))
-        createTupleData(playoffsDirectory + playoffsPrepend + str(year) + ".tsv",teamFile,str(year),True)
-
-
-def createLoadedArr():
-    lReg = []
-    lPlay = []
-    for year in xrange(2010, 2016):
-        regFileName = 'tupleData_r-' + str(year) + '.p'
-        playFileName = 'tupleData_p-' + str(year) + '.p'
-        lReg.append(p.load(open(regFileName, 'rb')))
-        lPlay.append(p.load(open(playFileName, 'rb')))
-    return (lReg, lPlay)
-
+        dTeamFile = statsDictDir + statsDictFName + str(year) + pickleFIleEnding
+        regFile = regDirectory + regPrepend + str(year) + ".txt"
+        playoffFile = playoffsDirectory + playoffsPrepend + str(year) + ".tsv"
+        dTeam = loadFile(dTeamFile)
+        createTupleData(regFile,dTeam,str(year))
+        createTupleData(playoffFile,dTeam,str(year),True)
 
 def createIDNameDict(sYear):
     fileName = teamDirectory + teamPrepend + sYear + '.tsv'
@@ -208,10 +260,11 @@ def createDNames():
         fileName = nameDictDir + nameDictPrepend + str(x) + pickleFIleEnding
         p.dump(d, open(fileName, 'wb'))
     print 'done'
-    
-        
+
+def loadFile(fileName):
+    ret = p.load(open(fileName, 'rb'))
+    return ret
 
 
-
-
-
+saveAllTeams()
+generateDataForAllYears()
