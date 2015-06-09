@@ -84,7 +84,7 @@ def produceDecisionTree(sLTrain, LDTVars):
 def produceDecisionTree(sLTrain, LDTVars):
     #Do more with SlDTVars
     tTrain = loadTupleData(sLTrain)
-    t = tree.DecisionTreeClassifier()
+    t = tree.DecisionTreeClassifier(max_depth = 6)
     #t = RFC(n_estimators=10)    
     t = t.fit(tTrain[0], tTrain[1])
     return t
@@ -120,3 +120,4 @@ def regVsPlay(sARTName, sIRTName, lDTVars = []):
         driver(sReg, sPlay, lDTVars, sIRTName  + str(year))
     driver(allReg, allPlay, lDTVars, sARTName)
 
+regVsPlay("AllReg","dTreeReg")
