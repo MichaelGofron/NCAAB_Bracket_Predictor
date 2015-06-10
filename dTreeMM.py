@@ -84,7 +84,7 @@ def produceDecisionTree(sLTrain, LDTVars):
 def produceDecisionTree(sLTrain, LDTVars):
     #Do more with SlDTVars
     tTrain = loadTupleData(sLTrain)
-    t = tree.DecisionTreeClassifier(max_depth = 6)
+    t = tree.DecisionTreeClassifier(**LDTVars)
     #t = RFC(n_estimators=10)    
     t = t.fit(tTrain[0], tTrain[1])
     return t
@@ -107,7 +107,7 @@ def driver(sLTrain, sLTest, LDTVars,PDFName):
     print "Performance of tree: ", evaluatePerformance(sLTest, t)
     generatePDF(PDFName,t)
 
-def regVsPlay(sARTName, sIRTName, lDTVars = []):
+def regVsPlay(sARTName, sIRTName, lDTVars = {}):
     regPrepend = 'r-'
     playPrepend = 'p-'
     allReg = []
@@ -120,4 +120,4 @@ def regVsPlay(sARTName, sIRTName, lDTVars = []):
         driver(sReg, sPlay, lDTVars, sIRTName  + str(year))
     driver(allReg, allPlay, lDTVars, sARTName)
 
-regVsPlay("AllReg","dTreeReg")
+#regVsPlay("AllReg","dTreeReg", { 'criterion': "entropy", 'max_depth': 5})

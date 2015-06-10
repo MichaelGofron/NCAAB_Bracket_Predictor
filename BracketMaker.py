@@ -114,7 +114,7 @@ def NCAATournament(year,dTree):
     return finalWinner
             
             
-        
-t = dT.produceDecisionTree(["r-2015"], []) 
+treeModifiers = { 'criterion': "entropy"}
+t = dT.produceDecisionTree(["r-2015"], treeModifiers) 
 sTeams = seedTeams(MW2015)
 NCAATournament(2015,t)
