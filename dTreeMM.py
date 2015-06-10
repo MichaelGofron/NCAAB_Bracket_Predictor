@@ -81,11 +81,13 @@ def produceDecisionTree(sLTrain, LDTVars):
     t = t.fit(tTrain[0], tTrain[1])
     return t
 """
-def produceDecisionTree(sLTrain, LDTVars):
-    #Do more with SlDTVars
+def produceDecisionTree(sLTrain, LDTVars, isRF = False):
     tTrain = loadTupleData(sLTrain)
-    #t = tree.DecisionTreeClassifier(**LDTVars)
-    t = RFC(n_estimators=10)    
+    t = None
+    if isRF:
+        t = RFC(**LDTVars)
+    else:
+        t = tree.DecisionTreeClassifier(**LDTVars)
     t = t.fit(tTrain[0], tTrain[1])
     return t
 
@@ -102,10 +104,11 @@ def generatePDF(PDFName,dTree):
     graph = pydot.graph_from_dot_data(dot_data.getvalue()) 
     graph.write_pdf(PDFName + ".pdf")
     
-def driver(sLTrain, sLTest, PDFName, LDTVars = {}):
-    t = produceDecisionTree(sLTrain, LDTVars)
+def driver(sLTrain, sLTest, PDFName, LDTVars = {}, isRF = False):
+    t = produceDecisionTree(sLTrain, LDTVars, isRF)
     print "Performance of tree: ", evaluatePerformance(sLTest, t)
-    generatePDF(PDFName,t)
+    if not isRF:
+        generatePDF(PDFName,t)
 
 def regVsPlay(sARTName, sIRTName, lDTVars = {}):
     regPrepend = 'r-'
