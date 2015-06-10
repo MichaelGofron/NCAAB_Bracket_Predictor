@@ -84,8 +84,8 @@ def produceDecisionTree(sLTrain, LDTVars):
 def produceDecisionTree(sLTrain, LDTVars):
     #Do more with SlDTVars
     tTrain = loadTupleData(sLTrain)
-    t = tree.DecisionTreeClassifier(**LDTVars)
-    #t = RFC(n_estimators=10)    
+    #t = tree.DecisionTreeClassifier(**LDTVars)
+    t = RFC(n_estimators=10)    
     t = t.fit(tTrain[0], tTrain[1])
     return t
 
