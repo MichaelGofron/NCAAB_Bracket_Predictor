@@ -102,7 +102,7 @@ def generatePDF(PDFName,dTree):
     graph = pydot.graph_from_dot_data(dot_data.getvalue()) 
     graph.write_pdf(PDFName + ".pdf")
     
-def driver(sLTrain, sLTest, LDTVars,PDFName):
+def driver(sLTrain, sLTest, PDFName, LDTVars = {}):
     t = produceDecisionTree(sLTrain, LDTVars)
     print "Performance of tree: ", evaluatePerformance(sLTest, t)
     generatePDF(PDFName,t)
@@ -121,4 +121,4 @@ def regVsPlay(sARTName, sIRTName, lDTVars = {}):
     driver(allReg, allPlay, lDTVars, sARTName)
 
 #regVsPlay("AllReg","dTreeReg", { 'criterion': "entropy", 'max_depth': 5})
-driver(['p-2010-2015'], [p-2015],{ 'criterion': "entropy", 'max_depth': 5}, '2014-2014 Playoffs' )
+driver(['p-2010-2015'], ['p-2015'],'2014-2014 Playoffs', { 'criterion': "entropy", 'max_depth': 5})
