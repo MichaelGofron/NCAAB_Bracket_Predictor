@@ -15,11 +15,11 @@
   <h5>EECS 349 Machine Learning Northwestern University</h5>
 
   <p>We were motivated to find a way to generate a perfect bracket or a better bracket than average based on the idea that it is a mathematically interesting task and economically advantageous. It is mathematically interesting because the predicted odds of getting a perfect bracket are 1 in 1,610,543,269 (for the year 2015). Additionally, it is economically advantageous because we can make money by betting with our friends and others on who has a better bracket.</p>
-  <p>We used a Decision Tree from the Scikit library. We took in many features about a team’s stats and the regular season game stats and took the differential of these features so we ended with point differential, rebound differential, FG percentage, and other features. Additionally, we limited the size of our tree to prevent over fitting.</p>
+  <p>We used a Decision Tree from the Scikit library. We took in many features about a team&#8217;s stats and the regular season game stats and took the differential of these features so we ended with point differential, rebound differential, FG percentage, and other features. Additionally, we limited the size of our tree to prevent over fitting.</p>
   <p>We trained our decision tree with the team stats over the season* as our features and whether a team won a game as the output space and restricting our training set to the regular season. Then we measured our success originally based on the percentage of games that we guessed correctly in the playoffs.</p>
   <p>We found that defensive point differential (opponent team points allowed) is the most important feature in our decision tree.  Our solution performed well in our first analysis of how many games it was able to correctly predict with 79% accuracy in the 2015 season. </p>
 
-  <img src="Images/terminal_output_bracket.png" height="500" width="500" alt="terminal bracket output">
+  <img src="Images/terminal_output_1.png" height="500" width="100%" alt="terminal bracket output">
   <figcaption>This is an image of a bracket outputted by the terminal that shows what picks to make based on the machine learning algorithm</figcaption>
 
   <p>*The team stats we used were for the whole season because we couldn't seperate the playoffs from the regular season for team statistics unfortunately</p>

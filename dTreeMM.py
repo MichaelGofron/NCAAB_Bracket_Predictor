@@ -121,3 +121,4 @@ def regVsPlay(sARTName, sIRTName, lDTVars = {}):
     driver(allReg, allPlay, lDTVars, sARTName)
 
 #regVsPlay("AllReg","dTreeReg", { 'criterion': "entropy", 'max_depth': 5})
+driver(['p-2010-2015'], [p-2015],{ 'criterion': "entropy", 'max_depth': 5}, '2014-2014 Playoffs' )

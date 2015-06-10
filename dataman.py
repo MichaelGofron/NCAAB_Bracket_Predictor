@@ -264,7 +264,16 @@ def createDNames():
 def loadFile(fileName):
     ret = p.load(open(fileName, 'rb'))
     return ret
+def generateDataPPriorvPCurrent():
+    priorPlayoffInstances = []
+    priorPlayoffWins = []
+    tFile = tupleDataDir + tupleDataFName + 'p-'
+    for yr in xrange(2010, 2015):
+        currTFile = tFile + str(yr) + '.p'
+        tData = p.load(open(currTFile, 'rb'))
+        priorPlayoffInstances.extend(tData[0])
+        priorPlayoffWins.extend(tData[1])
+    tupleData = (priorPlayoffInstances, priorPlayoffWins)
+    p.dump(tupleData, open(tFile + '2010-2015.p', 'wb'))
 
-
-saveAllTeams()
-generateDataForAllYears()
+generateDataPPriorvPCurrent()
